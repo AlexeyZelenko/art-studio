@@ -21,9 +21,7 @@ const Footer = () => {
   ];
 
   const socialLinks = [
-    { icon: Instagram, url: '#', name: 'Instagram' },
-    { icon: Facebook, url: '#', name: 'Facebook' },
-    { icon: Youtube, url: '#', name: 'YouTube' }
+    { icon: Instagram, url: 'https://www.instagram.com/visualsbyyana/', name: 'Instagram' }    
   ];
 
   return (
@@ -125,8 +123,8 @@ const Footer = () => {
               <div className="flex items-start space-x-3">
                 <Phone className="w-5 h-5 text-pink-400 mt-1 flex-shrink-0" />
                 <div>
-                  <p className="text-gray-300">+38 (067) 123-45-67</p>
-                  <p className="text-gray-300">+38 (063) 987-65-43</p>
+                  <p className="text-gray-300">+38 (097) 787-11-22</p>
+                  <p className="text-gray-300">+38 (095) 690-78-23</p>
                 </div>
               </div>                            
             </div>
