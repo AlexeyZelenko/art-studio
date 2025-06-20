@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 
 const Hero = () => {
   return (
-    <section id="home" className="bg-gradient-to-br from-pink-400 via-purple-500 to-indigo-600 relative overflow-hidden">
+    <section id="home" className="bg-gradient-to-br from-pink-400 via-purple-500 to-indigo-600 relative overflow-hidden w-full">
       {/* Background Elements */}
       <div className="absolute inset-0">
         <div className="absolute top-20 left-20 w-72 h-72 bg-white/10 rounded-full blur-3xl"></div>
@@ -12,14 +12,14 @@ const Hero = () => {
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-pink-300/30 rounded-full blur-3xl"></div>
       </div>
 
-      <div className="container mx-auto px-4 pt-32 pb-16 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-white"
-          >
+      <div className="container mx-auto px-3 sm:px-12 pt-32 pb-16 relative z-10 max-w-full w-full">
+        <div className="grid lg:grid-cols-2 gap-12 items-center w-full">
+                      <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              className="text-white w-full max-w-full"
+            >
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -68,7 +68,7 @@ const Hero = () => {
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.4, duration: 0.8 }}
-            className="relative"
+            className="relative w-full max-w-full"
           >
             <div className="relative w-full h-96 md:h-[500px] rounded-3xl overflow-hidden">
               <img
@@ -84,7 +84,7 @@ const Hero = () => {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 1, duration: 0.6 }}
-              className="absolute -top-6 -left-6 bg-white rounded-2xl p-4 shadow-2xl"
+              className="absolute top-2 left-2 md:-top-6 md:-left-6 bg-white rounded-2xl p-3 md:p-4 shadow-2xl"
             >
               <div className="flex items-center space-x-3">
                 <div className="w-12 h-12 bg-gradient-to-r from-pink-500 to-violet-600 rounded-full flex items-center justify-center">
@@ -101,7 +101,7 @@ const Hero = () => {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 1.2, duration: 0.6 }}
-              className="absolute -bottom-6 -right-6 bg-white rounded-2xl p-4 shadow-2xl"
+              className="absolute bottom-2 right-2 md:-bottom-6 md:-right-6 bg-white rounded-2xl p-3 md:p-4 shadow-2xl"
             >
               <div className="flex items-center space-x-3">
                 <div className="w-12 h-12 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full flex items-center justify-center">

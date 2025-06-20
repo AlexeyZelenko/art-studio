@@ -19,7 +19,7 @@ function App() {
           <Route path="/admin" element={<AdminRoute />} />
           <Route path="/portfolio/:id" element={<PortfolioDetail />} />
           <Route path="/" element={
-            <div className="min-h-screen">
+            <div className="min-h-screen w-full overflow-x-hidden">
               <Header />
               <Hero />
               <Services />

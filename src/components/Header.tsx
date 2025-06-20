@@ -31,16 +31,16 @@ const Header = () => {
         isScrolled ? 'bg-white/95 backdrop-blur-lg shadow-lg' : 'bg-transparent'
       }`}
     >
-      <div className="container mx-auto px-4 py-4">
-        <div className="flex items-center justify-between">
+      <div className="container mx-auto px-3 sm:px-4 py-4 max-w-full">
+        <div className="flex items-center justify-between w-full">
           <motion.div
             whileHover={{ scale: 1.05 }}
-            className="flex items-center space-x-2"
+            className="flex items-center space-x-2 flex-shrink-0"
           >
             <div className="w-10 h-10 bg-gradient-to-r from-pink-500 to-violet-600 rounded-full flex items-center justify-center">
               <Camera className="w-6 h-6 text-white" />
             </div>
-            <span className={`text-2xl font-bold bg-gradient-to-r from-pink-600 to-violet-600 bg-clip-text text-transparent ${
+            <span className={`text-xl sm:text-2xl font-bold bg-gradient-to-r from-pink-600 to-violet-600 bg-clip-text text-transparent ${
               isScrolled ? '' : 'text-white'
             }`}>
               PixelArt Studio
@@ -62,7 +62,7 @@ const Header = () => {
               </motion.a>
             ))}
             
-            {/* Admin Button */}
+            {/* Admin Button - только для десктопа */}
             <Link to="/admin">
               <motion.button
                 whileHover={{ scale: 1.05 }}
@@ -80,27 +80,13 @@ const Header = () => {
           </nav>
 
           {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center space-x-2">
-            <Link to="/admin">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className={`p-2 rounded-lg transition-colors ${
-                  isScrolled 
-                    ? 'text-gray-600 hover:bg-gray-100' 
-                    : 'text-white/80 hover:bg-white/10'
-                }`}
-                title="Адмін-панель"
-              >
-                <Settings className="w-5 h-5" />
-              </motion.button>
-            </Link>
-            
+          <div className="md:hidden flex items-center">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className={`p-2 rounded-lg transition-colors ${
                 isScrolled ? 'text-gray-800 hover:bg-gray-100' : 'text-white hover:bg-white/10'
               }`}
+              aria-label="Меню"
             >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -114,7 +100,7 @@ const Header = () => {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="md:hidden mt-4 bg-white rounded-lg shadow-lg overflow-hidden"
+              className="md:hidden mt-4 bg-white rounded-lg shadow-lg overflow-hidden mx-0"
             >
               {menuItems.map((item, index) => (
                 <motion.a
