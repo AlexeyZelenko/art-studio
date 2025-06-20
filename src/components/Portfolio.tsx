@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Eye, Heart, Share2, ArrowUpRight } from 'lucide-react';
-import { usePortfolio } from '../hooks/usePortfolio';
+import { usePortfolio } from '../contexts/PortfolioContext';
 import { useToast } from '../hooks/useToast';
 import Toast from './Toast';
 

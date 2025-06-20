@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, ChevronLeft, ChevronRight, Calendar, Tag, Share2, Heart, X } from 'lucide-react';
-import { usePortfolio } from '../hooks/usePortfolio';
+import { usePortfolio } from '../contexts/PortfolioContext';
 import { useToast } from '../hooks/useToast';
 import { PortfolioItem } from '../types/portfolio';
 import LoadingSpinner from './LoadingSpinner';

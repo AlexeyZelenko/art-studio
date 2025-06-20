@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Upload, Image as ImageIcon, Trash2, Plus } from 'lucide-react';
-import { usePortfolio } from '../../hooks/usePortfolio';
+import { usePortfolio } from '../../contexts/PortfolioContext';
 import { PortfolioItem } from '../../types/portfolio';
 
 interface PortfolioFormProps {

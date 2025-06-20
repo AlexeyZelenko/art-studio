@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { Plus, LogOut, Edit, Trash2, Image as ImageIcon, User, Settings, Camera, Home } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
-import { usePortfolio } from '../../hooks/usePortfolio';
+import { usePortfolio } from '../../contexts/PortfolioContext';
 import { useServices } from '../../hooks/useServices';
 import { PortfolioItem } from '../../types/portfolio';
 import PortfolioForm from './PortfolioForm';

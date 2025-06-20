@@ -9,26 +9,29 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import AdminRoute from './components/admin/AdminRoute';
 import PortfolioDetail from './components/PortfolioDetail';
+import { PortfolioProvider } from './contexts/PortfolioContext';
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/admin" element={<AdminRoute />} />
-        <Route path="/portfolio/:id" element={<PortfolioDetail />} />
-        <Route path="/" element={
-          <div className="min-h-screen">
-            <Header />
-            <Hero />
-            <Services />
-            <Portfolio />
-            <About />
-            <Contact />
-            <Footer />
-          </div>
-        } />
-      </Routes>
-    </Router>
+    <PortfolioProvider>
+      <Router>
+        <Routes>
+          <Route path="/admin" element={<AdminRoute />} />
+          <Route path="/portfolio/:id" element={<PortfolioDetail />} />
+          <Route path="/" element={
+            <div className="min-h-screen">
+              <Header />
+              <Hero />
+              <Services />
+              <Portfolio />
+              <About />
+              <Contact />
+              <Footer />
+            </div>
+          } />
+        </Routes>
+      </Router>
+    </PortfolioProvider>
   );
 }
 

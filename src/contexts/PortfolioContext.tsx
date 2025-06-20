@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { 
   collection, 
   getDocs, 
@@ -13,12 +13,37 @@ import { ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage
 import { db, storage } from '../firebase/config';
 import { PortfolioItem } from '../types/portfolio';
 
+interface PortfolioContextType {
+  portfolioItems: PortfolioItem[];
+  loading: boolean;
+  addPortfolioItem: (item: Omit<PortfolioItem, 'id' | 'createdAt' | 'updatedAt' | 'imageUrl' | 'images'>, files: File[]) => Promise<string>;
+  updatePortfolioItem: (id: string, updates: Partial<PortfolioItem>, newFiles?: File[]) => Promise<void>;
+  deletePortfolioItem: (id: string, images: string[]) => Promise<void>;
+  deleteImageFromPortfolio: (itemId: string, imageUrl: string) => Promise<void>;
+  refreshPortfolio: () => Promise<void>;
+}
+
+const PortfolioContext = createContext<PortfolioContextType | undefined>(undefined);
+
 export const usePortfolio = () => {
+  const context = useContext(PortfolioContext);
+  if (context === undefined) {
+    throw new Error('usePortfolio must be used within a PortfolioProvider');
+  }
+  return context;
+};
+
+interface PortfolioProviderProps {
+  children: ReactNode;
+}
+
+export const PortfolioProvider: React.FC<PortfolioProviderProps> = ({ children }) => {
   const [portfolioItems, setPortfolioItems] = useState<PortfolioItem[]>([]);
   const [loading, setLoading] = useState(true);
 
   const fetchPortfolio = async () => {
     try {
+      setLoading(true);
       const q = query(collection(db, 'portfolio'), orderBy('createdAt', 'desc'));
       const querySnapshot = await getDocs(q);
       const items: PortfolioItem[] = [];
@@ -35,6 +60,7 @@ export const usePortfolio = () => {
         } as PortfolioItem);
       });
       
+      console.log('PortfolioContext: Fetched', items.length, 'items');
       setPortfolioItems(items);
     } catch (error) {
       console.error('Error fetching portfolio:', error);
@@ -53,12 +79,6 @@ export const usePortfolio = () => {
     return await Promise.all(uploadPromises);
   };
 
-  const uploadImage = async (file: File): Promise<string> => {
-    const storageRef = ref(storage, `portfolio/${Date.now()}_${file.name}`);
-    const snapshot = await uploadBytes(storageRef, file);
-    return await getDownloadURL(snapshot.ref);
-  };
-
   const addPortfolioItem = async (item: Omit<PortfolioItem, 'id' | 'createdAt' | 'updatedAt' | 'imageUrl' | 'images'>, files: File[]) => {
     try {
       const imageUrls = await uploadImages(files);
@@ -72,13 +92,20 @@ export const usePortfolio = () => {
       
       const docRef = await addDoc(collection(db, 'portfolio'), newItem);
       
-      // Immediately update local state without refetching
+      // Create the complete portfolio item
       const portfolioItem: PortfolioItem = {
         id: docRef.id,
         ...newItem,
       };
       
-      setPortfolioItems(prev => [portfolioItem, ...prev]);
+      console.log('PortfolioContext: Adding new portfolio item:', portfolioItem);
+      
+      // Immediately update local state without refetching
+      setPortfolioItems(prev => {
+        const updated = [portfolioItem, ...prev];
+        console.log('PortfolioContext: Updated portfolio items count:', updated.length);
+        return updated;
+      });
       
       return docRef.id;
     } catch (error) {
@@ -185,13 +212,19 @@ export const usePortfolio = () => {
     fetchPortfolio();
   }, []);
 
-  return {
+  const contextValue: PortfolioContextType = {
     portfolioItems,
     loading,
     addPortfolioItem,
     updatePortfolioItem,
     deletePortfolioItem,
     deleteImageFromPortfolio,
-    refreshPortfolio: fetchPortfolio
+    refreshPortfolio: fetchPortfolio,
   };
-};
+
+  return (
+    <PortfolioContext.Provider value={contextValue}>
+      {children}
+    </PortfolioContext.Provider>
+  );
+}; 
