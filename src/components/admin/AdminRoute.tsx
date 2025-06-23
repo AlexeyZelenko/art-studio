@@ -4,7 +4,7 @@ import AdminLogin from './AdminLogin';
 import AdminDashboard from './AdminDashboard';
 
 const AdminRoute: React.FC = () => {
-  const { user, loading } = useAuth();
+  const { user, loading, isAuthorized } = useAuth();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   if (loading) {
@@ -15,7 +15,7 @@ const AdminRoute: React.FC = () => {
     );
   }
 
-  if (!user || !isLoggedIn) {
+  if (!user || !isAuthorized || !isLoggedIn) {
     return <AdminLogin onLogin={() => setIsLoggedIn(true)} />;
   }
 

@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Plus, Edit, Trash2, Eye, EyeOff, ArrowUp, ArrowDown } from 'lucide-react';
-import { useServices } from '../../hooks/useServices';
+import { Plus, Edit, Trash2, Eye, EyeOff } from 'lucide-react';
+import { useServices } from '../../contexts/ServicesContext';
 import { Service } from '../../types/service';
 import ServiceForm from './ServiceForm';
 import * as LucideIcons from 'lucide-react';
 
 const ServicesManagement: React.FC = () => {
-  const { services, loading, deleteService, updateService } = useServices();
+  const { services, loading, deleteService, updateService, refreshServices } = useServices();
   const [showForm, setShowForm] = useState(false);
   const [editingService, setEditingService] = useState<Service | null>(null);
 
   const handleEdit = (service: Service) => {
     setEditingService(service);
-    setShowForm(true);
+    setShowForm(true);    
   };
 
   const handleDelete = async (service: Service) => {
@@ -37,6 +37,12 @@ const ServicesManagement: React.FC = () => {
   const handleCloseForm = () => {
     setShowForm(false);
     setEditingService(null);
+  };
+
+  const handleSuccess = async () => {
+    // Обновляем данные после успешного сохранения
+    await refreshServices();
+    handleCloseForm();
   };
 
   const getIcon = (iconName: string) => {
@@ -235,7 +241,7 @@ const ServicesManagement: React.FC = () => {
         <ServiceForm
           service={editingService}
           onClose={handleCloseForm}
-          onSuccess={handleCloseForm}
+          onSuccess={handleSuccess}
         />
       )}
     </div>

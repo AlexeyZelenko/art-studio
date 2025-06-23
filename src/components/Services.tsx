@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { useServices } from '../hooks/useServices';
+import { useServices } from '../contexts/ServicesContext';
 import * as LucideIcons from 'lucide-react';
 
 const Services = () => {

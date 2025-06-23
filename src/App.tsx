@@ -10,28 +10,31 @@ import Footer from './components/Footer';
 import AdminRoute from './components/admin/AdminRoute';
 import PortfolioDetail from './components/PortfolioDetail';
 import { PortfolioProvider } from './contexts/PortfolioContext';
+import { ServicesProvider } from './contexts/ServicesContext';
 
 function App() {
   return (
-    <PortfolioProvider>
-      <Router>
-        <Routes>
-          <Route path="/admin" element={<AdminRoute />} />
-          <Route path="/portfolio/:id" element={<PortfolioDetail />} />
-          <Route path="/" element={
-            <div className="min-h-screen w-full overflow-x-hidden">
-              <Header />
-              <Hero />
-              <Services />
-              <Portfolio />
-              <About />
-              <Contact />
-              <Footer />
-            </div>
-          } />
-        </Routes>
-      </Router>
-    </PortfolioProvider>
+    <ServicesProvider>
+      <PortfolioProvider>
+        <Router>
+          <Routes>
+            <Route path="/admin" element={<AdminRoute />} />
+            <Route path="/portfolio/:id" element={<PortfolioDetail />} />
+            <Route path="/" element={
+              <div className="min-h-screen w-full overflow-x-hidden">
+                <Header />
+                <Hero />
+                <Services />
+                <Portfolio />
+                <About />
+                <Contact />
+                <Footer />
+              </div>
+            } />
+          </Routes>
+        </Router>
+      </PortfolioProvider>
+    </ServicesProvider>
   );
 }
 

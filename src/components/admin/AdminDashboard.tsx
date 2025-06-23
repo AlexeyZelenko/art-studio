@@ -4,7 +4,7 @@ import { Plus, LogOut, Edit, Trash2, Image as ImageIcon, User, Settings, Camera,
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import { usePortfolio } from '../../contexts/PortfolioContext';
-import { useServices } from '../../hooks/useServices';
+import { useServices } from '../../contexts/ServicesContext';
 import { PortfolioItem } from '../../types/portfolio';
 import PortfolioForm from './PortfolioForm';
 import ServicesManagement from './ServicesManagement';

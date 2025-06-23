@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import { 
   collection, 
   getDocs, 
@@ -76,7 +76,19 @@ const defaultServices: Omit<Service, 'id' | 'createdAt' | 'updatedAt'>[] = [
   }
 ];
 
-export const useServices = () => {
+interface ServicesContextType {
+  services: Service[];
+  loading: boolean;
+  addService: (serviceData: ServiceFormData) => Promise<string>;
+  updateService: (id: string, updates: Partial<ServiceFormData>) => Promise<void>;
+  deleteService: (id: string) => Promise<void>;
+  getActiveServices: () => Service[];
+  refreshServices: () => Promise<void>;
+}
+
+const ServicesContext = createContext<ServicesContextType | undefined>(undefined);
+
+export const ServicesProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [services, setServices] = useState<Service[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -136,7 +148,7 @@ export const useServices = () => {
     }
   };
 
-  const addService = async (serviceData: ServiceFormData) => {
+  const addService = async (serviceData: ServiceFormData): Promise<string> => {
     try {
       const newService = {
         ...serviceData,
@@ -160,7 +172,7 @@ export const useServices = () => {
     }
   };
 
-  const updateService = async (id: string, updates: Partial<ServiceFormData>) => {
+  const updateService = async (id: string, updates: Partial<ServiceFormData>): Promise<void> => {
     try {
       const updateData = { ...updates, updatedAt: new Date() };
       
@@ -179,7 +191,7 @@ export const useServices = () => {
     }
   };
 
-  const deleteService = async (id: string) => {
+  const deleteService = async (id: string): Promise<void> => {
     try {
       await deleteDoc(doc(db, 'services', id));
       
@@ -190,7 +202,7 @@ export const useServices = () => {
     }
   };
 
-  const getActiveServices = () => {
+  const getActiveServices = (): Service[] => {
     return services.filter(service => service.isActive).sort((a, b) => a.order - b.order);
   };
 
@@ -198,7 +210,7 @@ export const useServices = () => {
     fetchServices();
   }, []);
 
-  return {
+  const value: ServicesContextType = {
     services,
     loading,
     addService,
@@ -207,4 +219,18 @@ export const useServices = () => {
     getActiveServices,
     refreshServices: fetchServices
   };
+
+  return (
+    <ServicesContext.Provider value={value}>
+      {children}
+    </ServicesContext.Provider>
+  );
 };
+
+export const useServices = (): ServicesContextType => {
+  const context = useContext(ServicesContext);
+  if (context === undefined) {
+    throw new Error('useServices must be used within a ServicesProvider');
+  }
+  return context;
+}; 

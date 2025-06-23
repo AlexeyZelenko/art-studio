@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { X, Plus, Trash2 } from 'lucide-react';
-import { useServices } from '../../hooks/useServices';
+import { useServices } from '../../contexts/ServicesContext';
 import { Service, ServiceFormData } from '../../types/service';
 
 interface ServiceFormProps {
