@@ -47,20 +47,7 @@ const Footer = () => {
             <p className="text-gray-300 leading-relaxed mb-6">
               Професійна фотостудія в Україні. Створюємо неперевершені візуальні історії 
               з технічною майстерністю та творчим баченням.
-            </p>
-            <div className="flex space-x-4">
-              {socialLinks.map((social, index) => (
-                <motion.a
-                  key={index}
-                  whileHover={{ scale: 1.1, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                  href={social.url}
-                  className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-gradient-to-r hover:from-pink-500 hover:to-violet-600 transition-all"
-                >
-                  <social.icon className="w-5 h-5" />
-                </motion.a>
-              ))}
-            </div>
+            </p>            
           </motion.div>
 
           {/* Quick Links */}
@@ -123,9 +110,22 @@ const Footer = () => {
               <div className="flex items-start space-x-3">
                 <Phone className="w-5 h-5 text-pink-400 mt-1 flex-shrink-0" />
                 <div>
-                  <p className="text-gray-300">+38 (097) 787-11-22</p>
-                  <p className="text-gray-300">+38 (095) 690-78-23</p>
+                  <p className="text-gray-300">+38 (097) 787-11-22</p>                  
                 </div>
+              </div>
+              {/* Social Links */}
+              <div className="border-t border-white/10 pt-6">                
+                <motion.a
+                  whileHover={{ scale: 1.05, y: -1 }}
+                  whileTap={{ scale: 0.95 }}
+                  href="https://www.instagram.com/visualsbyyana/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center space-x-2 bg-gradient-to-r from-pink-500 to-violet-600 rounded-xl px-4 py-2 text-white hover:shadow-lg transition-all text-sm"
+                >
+                  <Instagram className="w-4 h-4" />
+                  <span>@visualsbyyana</span>
+                </motion.a>
               </div>                            
             </div>
           </motion.div>
