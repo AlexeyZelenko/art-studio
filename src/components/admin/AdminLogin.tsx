@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useAuth } from '../../hooks/useAuth';
 import { motion } from 'framer-motion';
 import { Lock, Chrome } from 'lucide-react';
+import { Link } from "react-router-dom";
 
 interface AdminLoginProps {
   onLogin: () => void;
@@ -72,6 +73,15 @@ const AdminLogin: React.FC<AdminLoginProps> = ({ onLogin }) => {
         <div className="mt-8 text-center">
           <p className="text-gray-400 text-sm">
             Доступ обмежений для авторизованих користувачів
+          </p>
+
+          <p className="text-gray-400 text-sm">
+            <Link 
+              to="/" 
+              className="text-blue-500 hover:text-blue-600 hover:underline transition-colors duration-200"
+            >
+              На головну
+            </Link>
           </p>
         </div>
       </motion.div>
